@@ -1,0 +1,91 @@
+--sequence
+
+CREATE SEQUENCE empid
+START WITH 1
+INCREMENT BY 1
+MINVALUE 1
+MAXVALUE 1000
+CYCLE
+CACHE 10;
+
+CREATE TABLE employee (
+    id INT PRIMARY KEY,
+    pname VARCHAR(20),
+    street VARCHAR(50),
+    city VARCHAR(20)
+);
+
+CREATE TABLE works (
+    id INT PRIMARY KEY,
+    cname VARCHAR(20)
+    FOREIGN KEY(id) REFERENCES employee(id)
+);
+
+CREATE TABLE company (
+    cname VARCHAR(20) PRIMARY KEY,
+    city VARCHAR(20)
+);
+
+CREATE TABLE manages (
+    id INT PRIMARY KEY,
+    mid INT
+);
+
+INSERT INTO employee (id, pname, street, city)
+VALUES (empid.NEXTVAL, 'Rohit', 'Ravivar Karanja', 'Nahsik');
+
+INSERT INTO employee (id, pname, street, city)
+VALUES (empid.NEXTVAL, 'Virat', 'Gangapur Road', 'Nahsik');
+
+INSERT INTO employee VALUES (3, 'MSD', 'Gangapur', 'Nahsik');
+
+INSERT INTO works (id, cname)
+VALUES (01, 'Nashik');
+
+INSERT INTO company (cname, city)
+VALUES ('TCS', 'Nashik');
+
+INSERT INTO manages (id, mid)
+VALUES (01, 05);
+
+SELECT * FROM employee;
+SELECT * FROM works;
+SELECT * FROM company;
+SELECT * FROM manages;
+
+
+ALTER TABLE works
+ADD salary INT;
+
+SELECT * FROM works;
+
+ALTER TABLE employee
+DROP COLUMN street;
+
+SELECT * FROM employee;
+
+ALTER TABLE company
+RENAME TO CMP;
+
+SELECT * FROM CMP;
+DROP TABLE manages;
+
+ALTER TABLE employee
+MODIFY city VARCHAR(20);
+
+--view
+
+CREATE VIEW EMPV2 AS
+SELECT pname,city
+FROM employee WHERE id = 1;
+
+SELECT * FROM EMPV2;
+
+--index
+
+CREATE INDEX ind1 ON employee(pname);
+SHOW INDEX ind1 FROM employee;
+
+
+
+​
