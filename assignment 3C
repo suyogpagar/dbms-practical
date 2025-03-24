@@ -1,0 +1,29 @@
+-- 1. Names and ages where name begins and ends with B, min 3 chars
+SELECT sname, age
+FROM Sailor
+WHERE sname LIKE 'B%B' AND LENGTH(sname) >= 3;
+
+-- 2. Names and ages where name begins with A or L
+SELECT sname, age
+FROM Sailor
+WHERE sname LIKE 'A%' OR sname LIKE 'L%';
+
+-- 3. Names where rating > 7 and age between 33-45
+SELECT sname
+FROM Sailor
+WHERE rating > 7 AND age BETWEEN 33 AND 45;
+
+-- 4. Names of sailors who haven't reserved on 10/10/98
+SELECT sname
+FROM Sailor
+WHERE sid NOT IN (SELECT sid FROM Reserves WHERE day = '1998-10-10');
+
+-- 5. Names of sailors who reserved boat 103 (using IN)
+SELECT sname
+FROM Sailor
+WHERE sid IN (SELECT sid FROM Reserves WHERE bid = 103);
+
+-- 6. Names of sailors who reserved boat 103 (using EXISTS)
+SELECT sname
+FROM Sailor s
+WHERE EXISTS (SELECT 1 FROM Reserves r WHERE r.sid = s.sid AND r.bid = 103);​
