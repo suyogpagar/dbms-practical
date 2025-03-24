@@ -1,0 +1,25 @@
+-- 8. Find name of sailors and display in upper case who reserved 'Interlake'
+SELECT UPPER(s.sname)
+FROM Sailor s
+JOIN Reserves r ON s.sid = r.sid
+JOIN Boat b ON r.bid = b.bid
+WHERE b.bname = 'Interlake';
+
+-- 9. Find ratings of sailors whose name contains 'us'
+SELECT rating FROM Sailor WHERE sname LIKE '%us%';
+
+-- 10. Find average age of sailors with rating of 8
+SELECT AVG(age) FROM Sailor WHERE rating = 8;
+
+-- 11. Count number of sailors with rating > 5
+SELECT COUNT(*) FROM Sailor WHERE rating > 5;
+
+-- 12. Add 2 months to reservation date for sid=64, bid=101
+SELECT ADD_MONTHS(day, 2)
+FROM Reserves
+WHERE sid = 64 AND bid = 101;
+
+-- 13. Find months between 12/02/2021 and current date
+SELECT MONTHS_BETWEEN('2025-03-23', '2021-12-02') FROM DUAL;
+
+​
