@@ -1,0 +1,38 @@
+-- Q1: Find the minimum age of sailors for each rating level.
+SELECT rating, MIN(age)
+FROM Sailors
+GROUP BY rating;
+
+-- Q2: Find the number of boats of each color.
+SELECT color, COUNT(*)
+FROM Boat
+GROUP BY color;
+
+-- Q3: Find the age of the oldest sailor for each rating level. Print rating level also.
+SELECT rating, MAX(age)
+FROM Sailors
+GROUP BY rating;
+
+-- Q4: Find the number of reservations of each boat in descending order of boat id.
+SELECT bid, COUNT(*)
+FROM Reserves
+GROUP BY bid
+ORDER BY bid DESC;
+
+-- Q5: Find the average age of sailors for each rating level that has at least two sailors.
+SELECT rating, AVG(age)
+FROM Sailors
+GROUP BY rating
+HAVING COUNT(*) >= 2;
+
+-- Q6: Find the age of the youngest sailor who is eligible to vote (i.e., at least 18 years old) for each rating level.
+SELECT rating, MIN(age)
+FROM Sailors
+WHERE age >= 18
+GROUP BY rating;
+
+-- Q7: Print sailors' names and the date of boat reservations in ascending order of the date of reservation.
+SELECT S.sname, R.day
+FROM Sailors S
+JOIN Reserves R ON S.sid = R.sid
+ORDER BY R.day ASC;
