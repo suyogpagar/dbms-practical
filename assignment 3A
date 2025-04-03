@@ -51,23 +51,25 @@ INSERT INTO Reserves VALUES (74, 103, '1998-09-08');
 --Part A
 
 -- 2. Find the name and age of all sailors
-SELECT sname, age FROM Sailor;
+SELECT sname, age FROM Sailors;
 
 -- 3. Find all sailors with a rating above 7
-SELECT * FROM Sailor WHERE rating > 7;
+SELECT * FROM Sailors WHERE rating > 7;
 
 -- 4. Increase ratings of sailors by 10% whose age is less than 40
-UPDATE Sailor SET rating = rating * 1.10 WHERE age < 40;
+UPDATE Sailors SET rating = rating * 1.10 WHERE age < 40;
 
 -- 5. Update rating of all sailors by 2 who have reserved boat on 11/12/98
-UPDATE Sailor SET rating = rating + 2
-WHERE sid IN (SELECT sid FROM Reserves WHERE day = '1998-12-12');
+UPDATE Sailors
+SET rating = rating + 2
+WHERE sid IN (SELECT sid FROM Reserves WHERE day = '11/12/98');
 
 -- 6. Delete sailors whose rating is less than 3 and age is above 60
-DELETE FROM Sailor WHERE rating < 3 AND age > 60;
+DELETE FROM Sailors WHERE rating < 3 AND age > 60;
 
 -- 7. Delete names of sailors who have reserved boat 102
-UPDATE Sailor SET sname = NULL
+UPDATE Sailors
+SET sname = NULL
 WHERE sid IN (SELECT sid FROM Reserves WHERE bid = 102);
 
 ​
