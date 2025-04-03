@@ -1,25 +1,48 @@
--- 8. Find name of sailors and display in upper case who reserved 'Interlake'
-SELECT UPPER(s.sname)
-FROM Sailor s
-JOIN Reserves r ON s.sid = r.sid
-JOIN Boat b ON r.bid = b.bid
-WHERE b.bname = 'Interlake';
+-- 1. Find the names of sailors (in upper case) who reserved a boat named 'Interlake'
+SELECT UPPER(Sailors.sname)
+FROM Sailors
+JOIN Reserves ON Sailors.sid = Reserves.sid
+JOIN Boat ON Reserves.bid = Boat.bid
+WHERE Boat.bname = 'Interlake';
 
--- 9. Find ratings of sailors whose name contains 'us'
-SELECT rating FROM Sailor WHERE sname LIKE '%us%';
+-- 2. Find the ratings of sailors whose name contains the substring 'us'
+SELECT rating FROM Sailors WHERE sname LIKE '%us%';
 
--- 10. Find average age of sailors with rating of 8
-SELECT AVG(age) FROM Sailor WHERE rating = 8;
+-- 3. Find the average age of sailors with a rating of 8
+SELECT AVG(age) FROM Sailors WHERE rating = 8;
 
--- 11. Count number of sailors with rating > 5
-SELECT COUNT(*) FROM Sailor WHERE rating > 5;
+-- 4. Count the number of sailors with a rating greater than 5
+SELECT COUNT(*) FROM Sailors WHERE rating > 5;
 
--- 12. Add 2 months to reservation date for sid=64, bid=101
+-- 5. Select reservation date of boat (bid=101) reserved by sailor (sid=64) and add 2 months
 SELECT ADD_MONTHS(day, 2)
 FROM Reserves
-WHERE sid = 64 AND bid = 101;
+WHERE bid = 101 AND sid = 64;
 
--- 13. Find months between 12/02/2021 and current date
-SELECT MONTHS_BETWEEN('2025-03-23', '2021-12-02') FROM DUAL;
+-- 6. Find the months between date '12/02/2021' and the system current date
+SELECT MONTHS_BETWEEN(SYSDATE, TO_DATE('12/02/2021', 'DD/MM/YYYY'));
 
-​
+-- 7. Find the name of the boat with the month of its reservation
+SELECT Boat.bname, TO_CHAR(Reserves.day, 'Month') AS reservation_month
+FROM Boat
+JOIN Reserves ON Boat.bid = Reserves.bid;
+
+-- 8. Demonstrate numeric functions
+SELECT
+  ABS(-10);
+  SIGN(-20);
+  POWER(2, 3);
+  ROUND(15.756, 1);
+  MOD(10, 3);
+  FLOOR(9.7);
+  CEIL(4.2);
+  TRUNC(8.9);
+
+-- 9. Find the square root of ages of all sailors
+SELECT sname, SQRT(age) FROM Sailors;
+
+-- 10. Display boat reservation dates in the format '19-Jun-2005'
+SELECT TO_CHAR(day, 'DD-Mon-YYYY') FROM Reserves;
+
+-- 11. Find the minimum and maximum rating from Sailors
+SELECT MIN(rating) ,MAX(rating) FROM Sailors;
