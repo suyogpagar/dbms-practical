@@ -1,0 +1,63 @@
+-- Create the student table
+CREATE TABLE student (
+    Rollno INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Percentage FLOAT
+);
+
+-- Insert 10 records with Indian names into the table
+INSERT INTO student (Rollno, Name, Percentage) VALUES (1, 'Aryan', 85);
+INSERT INTO student (Rollno, Name, Percentage) VALUES (2, 'Ishita', 75);
+INSERT INTO student (Rollno, Name, Percentage) VALUES (3, 'Rohan', 65);
+INSERT INTO student (Rollno, Name, Percentage) VALUES (4, 'Ananya', 55);
+INSERT INTO student (Rollno, Name, Percentage) VALUES (5, 'Kabir', 45);
+INSERT INTO student (Rollno, Name, Percentage) VALUES (6, 'Meera', 35);
+INSERT INTO student (Rollno, Name, Percentage) VALUES (7, 'Aditya', 90);
+INSERT INTO student (Rollno, Name, Percentage) VALUES (8, 'Sneha', 78);
+INSERT INTO student (Rollno, Name, Percentage) VALUES (9, 'Raj', 62);
+INSERT INTO student (Rollno, Name, Percentage) VALUES (10, 'Pooja', 48);
+
+-- PL/SQL Block
+DECLARE
+    v_rollno INT;
+    v_name VARCHAR(50);
+    v_percentage FLOAT;
+    v_grade VARCHAR(10);
+BEGIN
+    -- Accept rollno from user
+    v_rollno := &Rollno;
+
+    -- Retrieve name and percentage of the student with the given rollno
+    SELECT Name, Percentage
+    INTO v_name, v_percentage
+    FROM student
+    WHERE Rollno = v_rollno;
+
+    -- Calculate grade based on percentage
+    IF v_percentage >= 80 THEN
+        v_grade := 'A+';
+    ELSIF v_percentage >= 70 AND v_percentage < 80 THEN
+        v_grade := 'A';
+    ELSIF v_percentage >= 60 AND v_percentage < 70 THEN
+        v_grade := 'B+';
+    ELSIF v_percentage >= 50 AND v_percentage < 60 THEN
+        v_grade := 'B';
+    ELSIF v_percentage >= 40 AND v_percentage < 50 THEN
+        v_grade := 'C';
+    ELSE
+        v_grade := 'Fail';
+    END IF;
+
+    -- Print rollno, name, percentage, and grade of the student
+    DBMS_OUTPUT.PUT_LINE('Rollno: ' || v_rollno);
+    DBMS_OUTPUT.PUT_LINE('Name: ' || v_name);
+    DBMS_OUTPUT.PUT_LINE('Percentage: ' || v_percentage);
+    DBMS_OUTPUT.PUT_LINE('Grade: ' || v_grade);
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No student found with Rollno: ' || v_rollno);
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);
+END;
+/
